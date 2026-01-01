@@ -24,6 +24,9 @@ func resolveQuery(server string, qName string, qType uint16, sendClientSubnet bo
 	transport.ReadTimeout = 2 * time.Second
 	client := &dns.Client{Transport: transport}
 	msg := dns.NewMsg(qName, qType)
+	if msg == nil {
+		return nil, fmt.Errorf("unsupported DNS record type: %d", qType)
+	}
 	msg.RecursionDesired = true
 	msg.Opcode = dns.OpcodeQuery
 	msg.UDPSize = uint16(MaxDNSPacketSize)
@@ -40,10 +43,10 @@ func resolveQuery(server string, qName string, qType uint16, sendClientSubnet bo
 		}
 		addr, _ := netip.AddrFromSlice(subnet.IP)
 		ecsOpt := &dns.SUBNET{
-			Family:        family,
-			SourceNetmask: uint8(bits),
-			SourceScope:   0,
-			Address:       addr,
+			Family:  family,
+			Netmask: uint8(bits),
+			Scope:   0,
+			Address: addr,
 		}
 		msg.Pseudo = append(msg.Pseudo, ecsOpt)
 	}
@@ -51,6 +54,7 @@ func resolveQuery(server string, qName string, qType uint16, sendClientSubnet bo
 	readTimeout := transport.ReadTimeout
 	for i := 0; i < 3; i++ {
 		msg.ID = dns.ID()
+		msg.Data = nil // Clear packed data so Exchange will re-pack with new ID
 		ctx, cancel := context.WithTimeout(context.Background(), readTimeout)
 		response, rtt, err := client.Exchange(ctx, msg, "udp", server)
 		cancel()
