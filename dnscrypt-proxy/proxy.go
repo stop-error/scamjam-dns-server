@@ -17,6 +17,7 @@ import (
 	stamps "github.com/jedisct1/go-dnsstamps"
 	"golang.org/x/crypto/curve25519"
 	netproxy "golang.org/x/net/proxy"
+	
 )
 
 type Proxy struct {
@@ -281,6 +282,16 @@ func (proxy *Proxy) StartProxy() {
 				dlog.Noticef("Monitoring UI started successfully")
 			}
 		}
+	}
+
+	proxyAddress, _, err := net.SplitHostPort(proxy.listenAddresses[0])
+	if err != nil {
+		dlog.Error("Error getting proxy.listenAddresses!" + err.Error())
+	}
+	
+	SetDNS(proxyAddress)  
+	if err != nil {
+		dlog.Error("Failed to set host interface DNS address to proxy!" + err.Error())
 	}
 
 	proxy.startAcceptingClients()

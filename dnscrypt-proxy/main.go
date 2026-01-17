@@ -159,6 +159,10 @@ func (app *App) Stop(service service.Service) error {
 	if err := PidFileRemove(); err != nil {
 		dlog.Warnf("Failed to remove the PID file: [%v]", err)
 	}
+	ResetDNS()
+	if err != nil {
+		dlog.Error("Failed to reset DNS server address on host interfaces!" + err.Error())
+	}
 	dlog.Notice("Stopped.")
 	return nil
 }
