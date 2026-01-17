@@ -31,6 +31,7 @@ type Proxy struct {
 	queryLogIgnoredQtypes         []string
 	localDoHListeners             []*net.TCPListener
 	queryMeta                     []string
+	safeBrowsing				  string
 	enableHotReload               bool
 	udpListeners                  []*net.UDPConn
 	sources                       []*Source

@@ -440,6 +440,17 @@ func configureAnonymizedDNS(proxy *Proxy, config *Config) {
 	proxy.anonDirectCertFallback = config.AnonymizedDNS.DirectCertFallback
 }
 
+
+func configureSafeBrowsing(proxy *Proxy, config *Config) {
+	if config.SafeBrowsing == "enabled" {
+		proxy.safeBrowsing = "enabled"
+	} else if config.SafeBrowsing == "disabled" {
+		proxy.safeBrowsing = "disabled"
+	}
+}
+
+
+
 // configureSourceRestrictions - Configures server source restrictions
 func configureSourceRestrictions(proxy *Proxy, flags *ConfigFlags, config *Config) {
 	if *flags.ListAll {

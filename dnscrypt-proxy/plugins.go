@@ -6,7 +6,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
 	"codeberg.org/miekg/dns"
 	"github.com/jedisct1/dlog"
 )
@@ -102,6 +101,9 @@ func (proxy *Proxy) InitPluginsGlobals() error {
 	}
 	if len(proxy.queryMeta) != 0 {
 		*queryPlugins = append(*queryPlugins, Plugin(new(PluginQueryMeta)))
+	}
+	if len(proxy.safeBrowsing) != 0 {
+		*queryPlugins = append(*queryPlugins, Plugin(new(PluginSafeBrowsing)))
 	}
 	if len(proxy.allowNameFile) != 0 {
 		*queryPlugins = append(*queryPlugins, Plugin(new(PluginAllowName)))

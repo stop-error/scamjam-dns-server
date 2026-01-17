@@ -101,6 +101,7 @@ type Config struct {
 	RefusedCodeInResponses   bool                        `toml:"refused_code_in_responses"`
 	BlockedQueryResponse     string                      `toml:"blocked_query_response"`
 	QueryMeta                []string                    `toml:"query_meta"`
+	SafeBrowsing             string                      `toml:"safe_browsing"`
 	CloakedPTR               bool                        `toml:"cloak_ptr"`
 	AnonymizedDNS            AnonymizedDNSConfig         `toml:"anonymized_dns"`
 	DoHClientX509Auth        DoHClientX509AuthConfig     `toml:"doh_client_x509_auth"`
@@ -446,6 +447,8 @@ func ConfigLoad(proxy *Proxy, flags *ConfigFlags) error {
 
 	// Configure anonymized DNS
 	configureAnonymizedDNS(proxy, &config)
+
+	configureSafeBrowsing(proxy, &config)
 
 	// Configure broken implementations
 	configureBrokenImplementations(proxy, &config)

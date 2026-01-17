@@ -36,6 +36,8 @@ require (
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/golang/protobuf v1.5.4 // indirect
+	github.com/google/safebrowsing v0.0.0-20190624211811-bbf0d20d26b3 // indirect
 	github.com/hashicorp/go-syslog v1.0.0 // indirect
 	github.com/hashicorp/golang-lru v1.0.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
