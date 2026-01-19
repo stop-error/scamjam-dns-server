@@ -55,6 +55,11 @@ func (plugin *PluginSafeBrowsing) Reload() error {
 
 func (plugin *PluginSafeBrowsing) Eval(pluginsState *PluginsState, msg *dns.Msg) error {
 
+	if pluginsState.qName == "internetbeacon.msedge.net" {
+		dlog.Info("skipping domain internetbeacon.msedge.net since it's known safe and used by scamjam-dns-watcher to test for connectivity")
+		return nil
+	}
+
 	if safeBrowserInitError != nil {
 		dlog.Error("Detected Safe Browsing client init error: " + safeBrowserInitError.Error() + " Bypassing Safe Browsing protection due to error")
 		return nil

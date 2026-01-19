@@ -284,16 +284,6 @@ func (proxy *Proxy) StartProxy() {
 		}
 	}
 
-	proxyAddress, _, err := net.SplitHostPort(proxy.listenAddresses[0])
-	if err != nil {
-		dlog.Error("Error getting proxy.listenAddresses!" + err.Error())
-	}
-	
-	SetDNS(proxyAddress)  
-	if err != nil {
-		dlog.Error("Failed to set host interface DNS address to proxy!" + err.Error())
-	}
-
 	proxy.startAcceptingClients()
 	if !proxy.child {
 		// Notify the service manager that dnscrypt-proxy is ready. dnscrypt-proxy manages itself in case
