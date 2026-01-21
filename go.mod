@@ -49,3 +49,5 @@ require (
 	google.golang.org/grpc v1.77.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 )
+
+replace github.com/google/safebrowsing => github.com/stop-error/safebrowsing v0.1.0

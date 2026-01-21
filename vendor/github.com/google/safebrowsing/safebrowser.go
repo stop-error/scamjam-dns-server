@@ -224,6 +224,9 @@ type Config struct {
 	// If empty, no logs will be written.
 	Logger io.Writer
 
+	// Enabled specifies wether or not safebrowser should defer startup
+	Enabled bool
+
 	// compressionTypes indicates how the threat entry sets can be compressed.
 	compressionTypes []pb.CompressionType
 
@@ -294,6 +297,9 @@ type Stats struct {
 // The conf struct allows the user to configure many aspects of the
 // SafeBrowser's operation.
 func NewSafeBrowser(conf Config) (*SafeBrowser, error) {
+	if conf.Enabled == false {
+		return nil, nil
+	}
 	conf = conf.copy()
 	if !conf.setDefaults() {
 		return nil, errors.New("safebrowsing: invalid configuration")

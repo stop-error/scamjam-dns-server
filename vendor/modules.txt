@@ -36,7 +36,7 @@ github.com/fsnotify/fsnotify/internal
 ## explicit; go 1.17
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/ptypes/duration
-# github.com/google/safebrowsing v0.0.0-20190624211811-bbf0d20d26b3
+# github.com/google/safebrowsing v0.0.0-20190624211811-bbf0d20d26b3 => github.com/stop-error/safebrowsing v0.1.0
 ## explicit
 github.com/google/safebrowsing
 github.com/google/safebrowsing/internal/safebrowsing_proto
@@ -225,3 +225,4 @@ google.golang.org/protobuf/types/known/durationpb
 # gopkg.in/natefinch/lumberjack.v2 v2.2.1
 ## explicit; go 1.13
 gopkg.in/natefinch/lumberjack.v2
+# github.com/google/safebrowsing => github.com/stop-error/safebrowsing v0.1.0
